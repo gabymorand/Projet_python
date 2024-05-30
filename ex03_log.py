@@ -46,7 +46,7 @@ def menu_principal():
 
     if option_menu_principal == '1':
         print("Option choisie dans le menu principal: 1\n")
-        dossier_logs = "logs"
+        dossier_logs = "log"
         fichiers_logs = [f for f in os.listdir(dossier_logs) if f.endswith(".log")]
         print("Liste des fichiers logs disponibles:")
         for i, fichier in enumerate(fichiers_logs, start=1):
