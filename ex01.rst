@@ -1,0 +1,12 @@
+ex01 module
+===========
+
+.. module:: log.ex01
+   :synopsis: Documentation du module ex01
+   :noindex:
+.. automodule:: log.ex01
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+

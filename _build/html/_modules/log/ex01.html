@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>log.ex01 &#8212; Doc Logs V1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../_static/documentation_options.js?v=7351be05"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for log.ex01</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">random</span>
+<div class="viewcode-block" id="choisir_mot">
+<a class="viewcode-back" href="../../ex01.html#log.ex01.choisir_mot">[docs]</a>
+<span class="k">def</span> <span class="nf">choisir_mot</span><span class="p">():</span>
+    <span class="n">liste_mots</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="s2">&quot;programmation&quot;</span><span class="p">,</span> <span class="s2">&quot;pendu&quot;</span><span class="p">,</span> <span class="s2">&quot;informatique&quot;</span><span class="p">,</span> <span class="s2">&quot;jeu&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">liste_mots</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="afficher_mot_cache">
+<a class="viewcode-back" href="../../ex01.html#log.ex01.afficher_mot_cache">[docs]</a>
+<span class="k">def</span> <span class="nf">afficher_mot_cache</span><span class="p">(</span><span class="n">mot</span><span class="p">,</span> <span class="n">lettres_trouvees</span><span class="p">):</span>
+    <span class="n">mot_affiche</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">lettre</span> <span class="ow">in</span> <span class="n">mot</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">lettre</span> <span class="ow">in</span> <span class="n">lettres_trouvees</span><span class="p">:</span>
+            <span class="n">mot_affiche</span> <span class="o">+=</span> <span class="n">lettre</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mot_affiche</span> <span class="o">+=</span> <span class="s2">&quot;_&quot;</span>
+    <span class="k">return</span> <span class="n">mot_affiche</span></div>
+
+<div class="viewcode-block" id="jouer_pendu">
+<a class="viewcode-back" href="../../ex01.html#log.ex01.jouer_pendu">[docs]</a>
+<span class="k">def</span> <span class="nf">jouer_pendu</span><span class="p">():</span>
+    <span class="n">mot_a_deviner</span> <span class="o">=</span> <span class="n">choisir_mot</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">lettres_trouvees</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">essais_max</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">essais</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bienvenue au jeu du pendu!&quot;</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">essais</span> <span class="o">&lt;</span> <span class="n">essais_max</span><span class="p">:</span>
+        <span class="n">mot_affiche</span> <span class="o">=</span> <span class="n">afficher_mot_cache</span><span class="p">(</span><span class="n">mot_a_deviner</span><span class="p">,</span> <span class="n">lettres_trouvees</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mot à deviner : &quot;</span> <span class="o">+</span> <span class="n">mot_affiche</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mot_affiche</span> <span class="o">==</span> <span class="n">mot_a_deviner</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Félicitations! Vous avez deviné le mot!&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="n">lettre</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Devinez une lettre : &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">lettre</span> <span class="ow">in</span> <span class="n">lettres_trouvees</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Vous avez déjà deviné cette lettre. Essayez à nouveau.&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">lettre</span> <span class="ow">in</span> <span class="n">mot_a_deviner</span><span class="p">:</span>
+            <span class="n">lettres_trouvees</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lettre</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bonne devinette!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">essais</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Incorrect! Essais restants : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">essais_max</span> <span class="o">-</span> <span class="n">essais</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">essais</span> <span class="o">==</span> <span class="n">essais_max</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Désolé, vous avez atteint le nombre maximum d&#39;essais. Le mot était &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mot_a_deviner</span><span class="p">))</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">jouer_pendu</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Doc Logs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contenu:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Bienvenue à la documentation de logs!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#indices-et-tables">Indices et tables</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, gabriel.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>log.ex03_log &#8212; Doc Logs V1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../_static/documentation_options.js?v=7351be05"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for log.ex03_log</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<div class="viewcode-block" id="mesurer_temps">
+<a class="viewcode-back" href="../../ex03_log.html#log.ex03_log.mesurer_temps">[docs]</a>
+<span class="k">def</span> <span class="nf">mesurer_temps</span><span class="p">(</span><span class="n">fonction</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">debut</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">resultat</span> <span class="o">=</span> <span class="n">fonction</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">fin</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">temps_execution</span> <span class="o">=</span> <span class="n">fin</span> <span class="o">-</span> <span class="n">debut</span>
+        <span class="n">log_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;La fonction </span><span class="si">{</span><span class="n">fonction</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> a mis </span><span class="si">{</span><span class="n">temps_execution</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> secondes pour s&#39;exécuter.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;logAdmin.log&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">resultat</span>
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<div class="viewcode-block" id="lire_fichier_journal">
+<a class="viewcode-back" href="../../ex03_log.html#log.ex03_log.lire_fichier_journal">[docs]</a>
+<span class="k">def</span> <span class="nf">lire_fichier_journal</span><span class="p">(</span><span class="n">chemin_fichier</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">chemin_fichier</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fichier</span><span class="p">:</span>
+        <span class="n">contenu</span> <span class="o">=</span> <span class="n">fichier</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">contenu</span></div>
+
+
+<div class="viewcode-block" id="analyser_fichier_journal">
+<a class="viewcode-back" href="../../ex03_log.html#log.ex03_log.analyser_fichier_journal">[docs]</a>
+<span class="k">def</span> <span class="nf">analyser_fichier_journal</span><span class="p">(</span><span class="n">contenu</span><span class="p">):</span>
+    <span class="n">lignes</span> <span class="o">=</span> <span class="n">contenu</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">nombre_total_actions</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">statistiques_par_action</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">nombre_total_errors</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">statistiques_par_error</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">ligne</span> <span class="ow">in</span> <span class="n">lignes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;ACTION:&quot;</span> <span class="ow">in</span> <span class="n">ligne</span><span class="p">:</span>
+            <span class="n">nombre_total_actions</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">ligne</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;ACTION:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">statistiques_par_action</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">statistiques_par_action</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="s2">&quot;ERROR:&quot;</span> <span class="ow">in</span> <span class="n">ligne</span><span class="p">:</span>
+            <span class="n">nombre_total_errors</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">ligne</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;ERROR:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">statistiques_par_error</span><span class="p">[</span><span class="n">error</span><span class="p">]</span> <span class="o">=</span> <span class="n">statistiques_par_error</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">nombre_total_actions</span><span class="p">,</span> <span class="n">statistiques_par_action</span><span class="p">,</span> <span class="n">nombre_total_errors</span><span class="p">,</span> <span class="n">statistiques_par_error</span></div>
+
+
+<div class="viewcode-block" id="menu_principal">
+<a class="viewcode-back" href="../../ex03_log.html#log.ex03_log.menu_principal">[docs]</a>
+<span class="k">def</span> <span class="nf">menu_principal</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. Choisir les fichiers à analyser&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. Quitter&quot;</span><span class="p">)</span>
+
+    <span class="n">option_menu_principal</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Choisissez une option (1 ou 2): &quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">option_menu_principal</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Option choisie dans le menu principal: 1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">dossier_logs</span> <span class="o">=</span> <span class="s2">&quot;logs&quot;</span>
+        <span class="n">fichiers_logs</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dossier_logs</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.log&quot;</span><span class="p">)]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Liste des fichiers logs disponibles:&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fichier</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fichiers_logs</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">fichier</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">choix_fichiers</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Choisissez les fichiers à analyser (séparés par des virgules, ex. 1,2): &quot;</span><span class="p">)</span>
+        <span class="n">fichiers_a_analyser</span> <span class="o">=</span> <span class="p">[</span><span class="n">fichiers_logs</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">choix_fichiers</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)]</span>
+
+        <span class="k">for</span> <span class="n">fichier</span> <span class="ow">in</span> <span class="n">fichiers_a_analyser</span><span class="p">:</span>
+            <span class="n">chemin_fichier</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dossier_logs</span><span class="p">,</span> <span class="n">fichier</span><span class="p">)</span>
+            <span class="n">contenu_fichier</span> <span class="o">=</span> <span class="n">lire_fichier_journal</span><span class="p">(</span><span class="n">chemin_fichier</span><span class="p">)</span>
+            <span class="n">log_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Analyse du fichier </span><span class="si">{</span><span class="n">fichier</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;logAdmin.log&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+            
+            <span class="nd">@mesurer_temps</span>
+            <span class="k">def</span> <span class="nf">analyse_fichier</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">analyser_fichier_journal</span><span class="p">(</span><span class="n">contenu_fichier</span><span class="p">)</span>
+            
+            <span class="n">nombre_total</span><span class="p">,</span> <span class="n">statistiques_actions</span><span class="p">,</span> <span class="n">nombre_errors</span><span class="p">,</span> <span class="n">statistiques_errors</span> <span class="o">=</span> <span class="n">analyse_fichier</span><span class="p">()</span>
+            
+            <span class="n">log_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Nombre total d&#39;actions : </span><span class="si">{</span><span class="n">nombre_total</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;logAdmin.log&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+
+            <span class="n">log_message</span> <span class="o">=</span> <span class="s2">&quot;Statistiques par type d&#39;action:</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">occurrences</span> <span class="ow">in</span> <span class="n">statistiques_actions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">log_message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">occurrences</span><span class="si">}</span><span class="s2"> occurrences</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;logAdmin.log&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+
+            <span class="n">log_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Nombre total d&#39;erreurs : </span><span class="si">{</span><span class="n">nombre_errors</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;logAdmin.log&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+
+            <span class="n">log_message</span> <span class="o">=</span> <span class="s2">&quot;Statistiques par type d&#39;erreur:</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">for</span> <span class="n">error</span><span class="p">,</span> <span class="n">occurrences</span> <span class="ow">in</span> <span class="n">statistiques_errors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">log_message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">occurrences</span><span class="si">}</span><span class="s2"> occurrences</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;logAdmin.log&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">option_menu_principal</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Option choisie dans le menu principal: 2&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Programme terminé. Au revoir et merci!&quot;</span><span class="p">)</span>
+        <span class="n">exit</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Option non valide. Veuillez choisir 1 ou 2.&quot;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">menu_principal</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Doc Logs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contenu:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Bienvenue à la documentation de logs!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#indices-et-tables">Indices et tables</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, gabriel.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

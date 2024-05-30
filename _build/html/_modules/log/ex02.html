@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>log.ex02 &#8212; Doc Logs V1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../_static/documentation_options.js?v=7351be05"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for log.ex02</h1><div class="highlight"><pre>
+<span></span><span class="n">LISTE_COURS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Mathematiques&quot;</span><span class="p">,</span> <span class="s2">&quot;Physique&quot;</span><span class="p">,</span> <span class="s2">&quot;Chimie&quot;</span><span class="p">,</span> <span class="s2">&quot;Biologie&quot;</span><span class="p">,</span> <span class="s2">&quot;Histoire&quot;</span><span class="p">]</span>
+
+
+<span class="c1">#Initialise la classe etudiant </span>
+<span class="c1">#A note que la liste_cours sert principalement a initialsé de base la listes des cours.</span>
+<div class="viewcode-block" id="Etudiant">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.Etudiant">[docs]</a>
+<span class="k">class</span> <span class="nc">Etudiant</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nom</span><span class="p">,</span> <span class="n">prenom</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nom</span> <span class="o">=</span> <span class="n">nom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prenom</span> <span class="o">=</span> <span class="n">prenom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notes</span> <span class="o">=</span> <span class="p">{</span><span class="n">cours</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">cours</span> <span class="ow">in</span> <span class="n">LISTE_COURS</span><span class="p">}</span>
+
+<span class="c1">#Ajoute une note dans un cours</span>
+<div class="viewcode-block" id="Etudiant.ajouter_note">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.Etudiant.ajouter_note">[docs]</a>
+    <span class="k">def</span> <span class="nf">ajouter_note</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cours</span><span class="p">,</span> <span class="n">note</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cours</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">note</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="n">cours</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Note invalide. Veuillez entrer une note entre 0 et 20.&quot;</span><span class="p">)</span></div>
+
+
+<span class="c1">#Fait la moyenne de toute les notes</span>
+<div class="viewcode-block" id="Etudiant.moyenne_totale">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.Etudiant.moyenne_totale">[docs]</a>
+    <span class="k">def</span> <span class="nf">moyenne_totale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">notes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">notes</span><span class="p">)</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">notes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">total</span> <span class="o">/</span> <span class="n">count</span> <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span></div>
+
+
+<span class="c1">#Fait la moyenne d&#39;un cours</span>
+<div class="viewcode-block" id="Etudiant.moyenne_cours">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.Etudiant.moyenne_cours">[docs]</a>
+    <span class="k">def</span> <span class="nf">moyenne_cours</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cours</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cours</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="n">cours</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="n">cours</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="GestionNotes">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.GestionNotes">[docs]</a>
+<span class="k">class</span> <span class="nc">GestionNotes</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">etudiants</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1">#Permet d&#39;ajouter un etudiant</span>
+<div class="viewcode-block" id="GestionNotes.ajouter_etudiant">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.GestionNotes.ajouter_etudiant">[docs]</a>
+    <span class="k">def</span> <span class="nf">ajouter_etudiant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">etudiant</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">etudiants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">etudiant</span><span class="p">)</span></div>
+
+
+<span class="c1">#Permet d&#39;afficher les notes d&#39;un etudiant pour un cour donné</span>
+<div class="viewcode-block" id="GestionNotes.afficher_notes_cours_etudiant">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.GestionNotes.afficher_notes_cours_etudiant">[docs]</a>
+    <span class="k">def</span> <span class="nf">afficher_notes_cours_etudiant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">etudiant</span><span class="p">,</span> <span class="n">cours</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cours</span> <span class="ow">in</span> <span class="n">etudiant</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Notes de l&#39;étudiant </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> pour le cours </span><span class="si">{}</span><span class="s2"> :&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">etudiant</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span> <span class="n">etudiant</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span> <span class="n">cours</span><span class="p">))</span>
+            <span class="n">notes_cours</span> <span class="o">=</span> <span class="n">etudiant</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="n">cours</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">notes_cours</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cours</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">notes_cours</span><span class="p">))))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Aucune note trouvée pour le cours </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cours</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; </span><span class="se">\n</span><span class="s2"> Aucune note trouvée pour le cours </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cours</span><span class="p">))</span></div>
+
+
+<span class="c1">#Permet d&#39;afficher la moyenne total d&#39;un etudiant</span>
+<div class="viewcode-block" id="GestionNotes.afficher_moyenne_totale_etudiant">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.GestionNotes.afficher_moyenne_totale_etudiant">[docs]</a>
+    <span class="k">def</span> <span class="nf">afficher_moyenne_totale_etudiant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">etudiant</span><span class="p">):</span>
+        <span class="n">moyenne_totale</span> <span class="o">=</span> <span class="n">etudiant</span><span class="o">.</span><span class="n">moyenne_totale</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Moyenne totale de l&#39;étudiant </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> : </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">etudiant</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span> <span class="n">etudiant</span><span class="o">.</span><span class="n">prenom</span><span class="p">,</span> <span class="n">moyenne_totale</span><span class="p">))</span></div>
+
+
+
+<span class="c1">#Permet d&#39;afficher la moyenne total des etudiants</span>
+<div class="viewcode-block" id="GestionNotes.afficher_moyenne_totale">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.GestionNotes.afficher_moyenne_totale">[docs]</a>
+    <span class="k">def</span> <span class="nf">afficher_moyenne_totale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">total_moyenne</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">count_etudiants</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">etudiant</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">etudiants</span><span class="p">:</span>
+            <span class="n">total_moyenne</span> <span class="o">+=</span> <span class="n">etudiant</span><span class="o">.</span><span class="n">moyenne_totale</span><span class="p">()</span>
+            <span class="n">count_etudiants</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">moyenne_totale</span> <span class="o">=</span> <span class="n">total_moyenne</span> <span class="o">/</span> <span class="n">count_etudiants</span> <span class="k">if</span> <span class="n">count_etudiants</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Moyenne totale de tous les étudiants : </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">moyenne_totale</span><span class="p">))</span></div>
+
+
+<span class="c1">#Permet d&#39;afficher la moyenne d&#39;un cours</span>
+<div class="viewcode-block" id="GestionNotes.afficher_moyenne_cours">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.GestionNotes.afficher_moyenne_cours">[docs]</a>
+    <span class="k">def</span> <span class="nf">afficher_moyenne_cours</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cours</span><span class="p">):</span>
+        <span class="n">total_notes</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">count_etudiants</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">etudiant</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">etudiants</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cours</span> <span class="ow">in</span> <span class="n">etudiant</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+                <span class="n">total_notes</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">etudiant</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="n">cours</span><span class="p">])</span>
+                <span class="n">count_etudiants</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">etudiant</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="n">cours</span><span class="p">])</span>
+
+        <span class="n">moyenne_cours</span> <span class="o">=</span> <span class="n">total_notes</span> <span class="o">/</span> <span class="n">count_etudiants</span> <span class="k">if</span> <span class="n">count_etudiants</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Moyenne du cours </span><span class="si">{}</span><span class="s2"> : </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cours</span><span class="p">,</span> <span class="n">moyenne_cours</span><span class="p">))</span></div>
+
+
+    <span class="c1"># Fonction secrète, affiche toute les notes d&#39;un cours, utiliser pour le debug</span>
+<div class="viewcode-block" id="GestionNotes.afficher_toutes_les_notes">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.GestionNotes.afficher_toutes_les_notes">[docs]</a>
+    <span class="k">def</span> <span class="nf">afficher_toutes_les_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">etudiant</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Toutes les notes de l&#39;étudiant </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> :&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">etudiant</span><span class="o">.</span><span class="n">nom</span><span class="p">,</span> <span class="n">etudiant</span><span class="o">.</span><span class="n">prenom</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">cours</span><span class="p">,</span> <span class="n">notes</span> <span class="ow">in</span> <span class="n">etudiant</span><span class="o">.</span><span class="n">notes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cours</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">notes</span><span class="p">))))</span></div>
+
+
+
+<span class="c1">#Afficher la liste des cours Disponibles </span>
+<div class="viewcode-block" id="GestionNotes.afficher_liste_cours">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.GestionNotes.afficher_liste_cours">[docs]</a>
+    <span class="k">def</span> <span class="nf">afficher_liste_cours</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Liste des cours disponibles :&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">cours</span> <span class="ow">in</span> <span class="n">LISTE_COURS</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">cours</span><span class="p">)</span></div>
+
+
+<span class="c1">#Fonction secrète, Permet d&#39;ajouter un etudiant à tout les cours disponible et de fixé sa note</span>
+<div class="viewcode-block" id="GestionNotes.ajouter_etudiant_a_tous_les_cours">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.GestionNotes.ajouter_etudiant_a_tous_les_cours">[docs]</a>
+    <span class="k">def</span> <span class="nf">ajouter_etudiant_a_tous_les_cours</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">etudiant</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">cours</span> <span class="ow">in</span> <span class="n">LISTE_COURS</span><span class="p">:</span>
+            <span class="n">note</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Note pour le cours </span><span class="si">{}</span><span class="s2"> (entre 0 et 20) : &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cours</span><span class="p">)))</span>
+            <span class="n">etudiant</span><span class="o">.</span><span class="n">ajouter_note</span><span class="p">(</span><span class="n">cours</span><span class="p">,</span> <span class="n">note</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ajouter_etudiant</span><span class="p">(</span><span class="n">etudiant</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GestionNotes.afficher_menu">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.GestionNotes.afficher_menu">[docs]</a>
+    <span class="k">def</span> <span class="nf">afficher_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Menu Interactif :&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1: Ajouter un élève à un cours avec une note dans ce cours&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;2: Afficher les notes dun élève pour un cours spécifique&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3: Afficher la moyenne totale d&#39;un élève.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;4: Afficher la moyenne dun cours spécifique.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;5: Afficher la moyenne totale de tous les élèves.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;6: Quitter le programme.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;7: Afficher la liste des cours disponibles.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;8: Programme secret : Liste des notes de tous les étudiants pour un cours spécifique.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;9: Programme secret : Ajouter un élève à tous les cours avec des notes entre 0 et 20.&#39;</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="quitter_programme">
+<a class="viewcode-back" href="../../ex02.html#log.ex02.quitter_programme">[docs]</a>
+<span class="k">def</span> <span class="nf">quitter_programme</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Programme terminé. Au revoir et merci!&quot;</span><span class="p">)</span>
+    <span class="n">exit</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">gestion_notes</span> <span class="o">=</span> <span class="n">GestionNotes</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">gestion_notes</span><span class="o">.</span><span class="n">afficher_menu</span><span class="p">()</span>
+        <span class="n">choix</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Choisissez une option (1-9) : &quot;</span><span class="p">)</span>
+
+        <span class="k">match</span> <span class="n">choix</span><span class="p">:</span>
+            <span class="k">case</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+                <span class="n">nom</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Nom de l&#39;étudiant : &quot;</span><span class="p">)</span>
+                <span class="n">prenom</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Prénom de l&#39;étudiant : &quot;</span><span class="p">)</span>
+                <span class="n">etudiant</span> <span class="o">=</span> <span class="n">Etudiant</span><span class="p">(</span><span class="n">nom</span><span class="p">,</span> <span class="n">prenom</span><span class="p">)</span>
+                <span class="n">cours</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Nom du cours : &quot;</span><span class="p">)</span>
+                <span class="n">note</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Note (entre 0 et 20) : &quot;</span><span class="p">))</span>
+                <span class="n">etudiant</span><span class="o">.</span><span class="n">ajouter_note</span><span class="p">(</span><span class="n">cours</span><span class="p">,</span> <span class="n">note</span><span class="p">)</span>
+                <span class="n">gestion_notes</span><span class="o">.</span><span class="n">ajouter_etudiant</span><span class="p">(</span><span class="n">etudiant</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Note ajoutée avec succès!&quot;</span><span class="p">)</span>
+
+            <span class="k">case</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span>
+                <span class="n">nom</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Nom de l&#39;étudiant : &quot;</span><span class="p">)</span>
+                <span class="n">prenom</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Prénom de l&#39;étudiant : &quot;</span><span class="p">)</span>
+                <span class="n">etudiant</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">gestion_notes</span><span class="o">.</span><span class="n">etudiants</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">nom</span> <span class="o">==</span> <span class="n">nom</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">prenom</span> <span class="o">==</span> <span class="n">prenom</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">etudiant</span><span class="p">:</span>
+                    <span class="n">cours</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Nom du cours : &quot;</span><span class="p">)</span>
+                    <span class="n">gestion_notes</span><span class="o">.</span><span class="n">afficher_notes_cours_etudiant</span><span class="p">(</span><span class="n">etudiant</span><span class="p">,</span> <span class="n">cours</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Étudiant non trouvé.&quot;</span><span class="p">)</span>
+
+            <span class="k">case</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span>
+                <span class="n">nom</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Nom de l&#39;étudiant : &quot;</span><span class="p">)</span>
+                <span class="n">prenom</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Prénom de l&#39;étudiant : &quot;</span><span class="p">)</span>
+                <span class="n">etudiant</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">gestion_notes</span><span class="o">.</span><span class="n">etudiants</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">nom</span> <span class="o">==</span> <span class="n">nom</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">prenom</span> <span class="o">==</span> <span class="n">prenom</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">etudiant</span><span class="p">:</span>
+                    <span class="n">gestion_notes</span><span class="o">.</span><span class="n">afficher_moyenne_totale_etudiant</span><span class="p">(</span><span class="n">etudiant</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Étudiant non trouvé.&quot;</span><span class="p">)</span>
+
+            <span class="k">case</span> <span class="s2">&quot;4&quot;</span><span class="p">:</span>
+                <span class="n">cours</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Nom du cours : (Les cours existants sont : Mathematiques, Physique, Chimie, Biologie, Histoire]) :&quot;</span><span class="p">)</span>
+                <span class="n">gestion_notes</span><span class="o">.</span><span class="n">afficher_moyenne_cours</span><span class="p">(</span><span class="n">cours</span><span class="p">)</span>
+
+            <span class="k">case</span> <span class="s2">&quot;5&quot;</span><span class="p">:</span>
+                <span class="n">gestion_notes</span><span class="o">.</span><span class="n">afficher_moyenne_totale</span><span class="p">()</span>
+
+            <span class="k">case</span> <span class="s2">&quot;6&quot;</span><span class="p">:</span>
+                <span class="n">quitter_programme</span><span class="p">()</span>
+
+            <span class="k">case</span> <span class="s2">&quot;7&quot;</span><span class="p">:</span>
+                <span class="n">gestion_notes</span><span class="o">.</span><span class="n">afficher_liste_cours</span><span class="p">()</span>
+
+            <span class="k">case</span> <span class="s2">&quot;8&quot;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Programme secret : liste des notes de tous les étudiants pour un cours spécifique&quot;</span><span class="p">)</span>
+                <span class="n">cours</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Nom du cours : &quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">etudiant</span> <span class="ow">in</span> <span class="n">gestion_notes</span><span class="o">.</span><span class="n">etudiants</span><span class="p">:</span>
+                    <span class="n">gestion_notes</span><span class="o">.</span><span class="n">afficher_notes_cours_etudiant</span><span class="p">(</span><span class="n">etudiant</span><span class="p">,</span> <span class="n">cours</span><span class="p">)</span>
+
+            <span class="k">case</span> <span class="s2">&quot;9&quot;</span><span class="p">:</span>
+                <span class="n">etudiant</span> <span class="o">=</span> <span class="n">Etudiant</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Nom de l&#39;étudiant : &quot;</span><span class="p">),</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Prénom de l&#39;étudiant : &quot;</span><span class="p">))</span>
+                <span class="n">gestion_notes</span><span class="o">.</span><span class="n">ajouter_etudiant_a_tous_les_cours</span><span class="p">(</span><span class="n">etudiant</span><span class="p">)</span>
+
+            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Option invalide. Veuillez choisir une option de 1 à 9.&quot;</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Doc Logs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contenu:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Bienvenue à la documentation de logs!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#indices-et-tables">Indices et tables</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, gabriel.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

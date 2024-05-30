@@ -1,0 +1,7 @@
+2022-01-01 12:01:01 - ACTION: login - USER: alice
+2022-01-01 12:05:23 - ACTION: view_page - USER: bob
+2022-01-01 12:10:45 - ACTION: logout - USER: alice
+2022-01-01 12:15:12 - ACTION: view_page - USER: charlie
+2022-01-01 12:20:34 - ACTION: login - USER: david
+2022-01-01 12:25:56 - ACTION: view_page - USER: bob
+2022-01-01 12:30:21 - ACTION: logout - USER: david

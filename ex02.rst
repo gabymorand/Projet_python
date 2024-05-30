@@ -1,0 +1,24 @@
+ex02 module
+===========
+
+.. module:: log.ex02
+   :synopsis: Documentation du module ex02
+   :noindex:
+
+Classes
+-------
+
+.. autoclass:: log.ex02.Etudiant
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: log.ex02.GestionNotes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Functions
+---------
+
+.. autofunction:: log.ex02.quitter_programme
