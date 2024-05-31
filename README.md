@@ -12,7 +12,6 @@ Bienvenue dans notre projet Python ! Ce projet comprend plusieurs fonctionnalit�
 - [Installation](#installation)
 - [Utilisation](#utilisation)
 - [Contribuer](#contribuer)
-- [Licence](#licence)
 
 ## Fonctionnalités
 
@@ -98,5 +97,3 @@ Créez votre branche de fonctionnalité (git checkout -b feature/ma-fonctionnali
 Commitez vos modifications (git commit -am 'Ajout de ma fonctionnalité')
 Poussez votre branche (git push origin feature/ma-fonctionnalite)
 Ouvrez une Pull Request
-##  Licence
-Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
